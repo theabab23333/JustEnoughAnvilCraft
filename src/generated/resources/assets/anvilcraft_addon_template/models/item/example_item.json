@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "just_enough_anvilcraft:item/example_item"
-  }
-}

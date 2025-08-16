@@ -9,7 +9,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import static dev.anvilcraft.jea.JustEnoughAnvilCraft.REGISTRATE;
 
-@EventBusSubscriber(modid = JustEnoughAnvilCraft.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = JustEnoughAnvilCraft.MOD_ID)
 public class ModDatagen {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {}
