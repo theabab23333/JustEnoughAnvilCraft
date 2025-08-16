@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "anvilcraft_addon_template:block/example_block"
+      "model": "just_enough_anvilcraft:block/example_block"
     }
   }
 }

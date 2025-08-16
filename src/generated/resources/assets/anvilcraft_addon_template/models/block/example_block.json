@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "anvilcraft_addon_template:block/example_block"
+    "all": "just_enough_anvilcraft:block/example_block"
   }
 }
