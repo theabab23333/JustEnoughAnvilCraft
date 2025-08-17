@@ -9,10 +9,6 @@ import dev.dubhe.anvilcraft.recipe.anvil.wrap.components.ChanceItemStack;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.component.DataComponentPredicate;
-import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.TypedDataComponent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,13 +16,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 import static dev.dubhe.anvilcraft.integration.jei.util.JeiSlotUtil.addSlotWithCount;
 
@@ -48,8 +40,6 @@ public class JeaSlotUtil {
         }
 
         int size = ingerdientList.size();
-        int startX = 0;
-        int startY = 0;
         if (size == 0) return;
         if (size == 1) {
             ItemIngredientPredicate ingredient = ingerdientList.getFirst();
@@ -57,12 +47,17 @@ public class JeaSlotUtil {
             slot.addIngredients(Ingredient.of(ingredient.getItems()));
         } else if (size <= 4) {
             for (int index = 0; index < size; index++) {
+                int startX = 11;
+                int startY = 15;
                 int row = index / 2;
                 int col = index % 2;
                 addSlotWithCount(builder, startX + 16 * col, startY + 16 * row, ingerdientList.get(index));
             }
         } else {
             for (int index = 0; index < size; index++) {
+                if (index > 12) break;
+                int startX = 0;
+                int startY = 0;
                 int row = index / 3;
                 int col = index % 3;
                 addSlotWithCount(builder, startX + 16 * col, startY + 16 * row, ingerdientList.get(index));
