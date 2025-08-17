@@ -4,6 +4,7 @@
   "package": "dev.anvilcraft.jea.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "BlockCompressCategoryMixin"
   ],
   "client": [
   ],
