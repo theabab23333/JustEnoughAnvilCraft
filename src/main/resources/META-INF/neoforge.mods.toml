@@ -8,6 +8,7 @@ displayName = "${mod_name}"
 displayURL = "https://docs.anvilcraft.dev/"
 authors = "${mod_authors}"
 description = '''${mod_description}'''
+logoFile = "jeac.logo.png"
 [[mixins]]
 config = "${mod_id}.mixins.json"
 
@@ -28,6 +29,6 @@ side = "BOTH"
 [[dependencies."${mod_id}"]]
 modId = "anvilcraft"
 type = "required"
-versionRange = "[1.4.11,)"
+versionRange = "[1.5,)"
 ordering = "NONE"
 side = "BOTH"
