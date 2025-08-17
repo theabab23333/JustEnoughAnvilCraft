@@ -158,16 +158,7 @@ public class JeaSlotUtil {
         IRecipeLayoutBuilder builder,
         HasCauldronSimple cauldronSimple
     ) {
-        if (cauldronSimple == null) return;
-        cauldronSimple.getFluidCauldron();
-        System.out.println(cauldronSimple.getFluidCauldron());
-        Block block = cauldronSimple.getFluidCauldron();
-        CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(block);
-        if (cauldronFluidContent == null) return;
-        Fluid fluid = cauldronFluidContent.fluid;
-        int amount = cauldronSimple.getConsume();
-        if (amount == 0) amount = 1000;
-        builder.addInputSlot(0, 0).addFluidStack(fluid, amount);
+        System.out.println(cauldronSimple);
     }
 
     public static List<ItemIngredientPredicate> ingredientPredicateList (ItemStack itemStack) {
