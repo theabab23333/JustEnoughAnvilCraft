@@ -28,13 +28,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static dev.dubhe.anvilcraft.integration.jei.util.JeiSlotUtil.addSlotWithCount;
+
 public class JeaSlotUtil {
-    // 来自本体的JeiSlotUtil
+    // 部分(大多数)代码来自本体JeiSlotUtil
 
     public static void addInputSlots(
         IRecipeLayoutBuilder builder,
         BlockCompressRecipe recipe
     ) {
+
         List<ItemIngredientPredicate> ingerdientList = new ArrayList<>();
         for (BlockStatePredicate blockStatePredicate : recipe.getInputs()) {
             for (BlockState blockState : blockStatePredicate.constructStatesForRender()) {
@@ -43,20 +46,44 @@ public class JeaSlotUtil {
                 ingerdientList.addAll(ingredientPredicateList(item));
             }
         }
-        JeiSlotUtil.addInputSlots(builder, ingerdientList);
-    }
 
-    public static void drawOutputSlots(
-        IRecipeLayoutBuilder builder
-    ) {
-
+        int size = ingerdientList.size();
+        int startX = 0;
+        int startY = 0;
+        if (size == 0) return;
+        if (size == 1) {
+            ItemIngredientPredicate ingredient = ingerdientList.getFirst();
+            IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.INPUT, 0, 0);
+            slot.addIngredients(Ingredient.of(ingredient.getItems()));
+        } else if (size <= 4) {
+            for (int index = 0; index < size; index++) {
+                int row = index / 2;
+                int col = index % 2;
+                addSlotWithCount(builder, startX + 16 * col, startY + 16 * row, ingerdientList.get(index));
+            }
+        } else {
+            for (int index = 0; index < size; index++) {
+                int row = index / 3;
+                int col = index % 3;
+                addSlotWithCount(builder, startX + 16 * col, startY + 16 * row, ingerdientList.get(index));
+            }
+        }
     }
 
     public static void drawOutputSlots(
         IRecipeLayoutBuilder builder,
-        ChanceBlockState chanceBlockState
+        BlockCompressRecipe recipe
     ) {
-
+        List<ChanceItemStack> chanceItemStacks = new ArrayList<>();
+        for (ChanceBlockState chanceBlockState : recipe.getResults()) {
+            BlockState blockState = chanceBlockState.getState();
+            Block block = blockState.getBlock();
+            Item item = block.asItem();
+            ItemStack itemStack = new ItemStack(item);
+            ChanceItemStack chanceItemStack = ChanceItemStack.of(itemStack);
+            chanceItemStacks.add(chanceItemStack);
+            JeiSlotUtil.addOutputSlots(builder, chanceItemStacks);
+        }
     }
 
     public static List<ItemIngredientPredicate> ingredientPredicateList (ItemStack itemStack) {

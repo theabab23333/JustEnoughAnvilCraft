@@ -25,12 +25,8 @@ public class BlockCompressCategoryMixin {
         RecipeHolder<BlockCompressRecipe> recipeHolder,
         IFocusGroup focuses,
         CallbackInfo ci) {
-
         BlockCompressRecipe recipe = recipeHolder.value();
         JeaSlotUtil.addInputSlots(builder, recipe);
-
-        for (ChanceBlockState output : recipe.getResults()) {
-            JeaSlotUtil.drawOutputSlots(builder, output);
-        }
+        JeaSlotUtil.drawOutputSlots(builder, recipe);
     }
 }
