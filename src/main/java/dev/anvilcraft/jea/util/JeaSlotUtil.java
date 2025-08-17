@@ -3,19 +3,20 @@ package dev.anvilcraft.jea.util;
 import dev.dubhe.anvilcraft.integration.jei.util.JeiSlotUtil;
 import dev.dubhe.anvilcraft.recipe.anvil.util.BlockStatePredicate;
 import dev.dubhe.anvilcraft.recipe.anvil.util.ItemIngredientPredicate;
-import dev.dubhe.anvilcraft.recipe.anvil.wrap.BlockCompressRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.BulgingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.components.ChanceBlockState;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.components.ChanceItemStack;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.components.HasCauldronSimple;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.neoforged.neoforge.fluids.CauldronFluidContent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +28,10 @@ public class JeaSlotUtil {
 
     public static void addInputSlots(
         IRecipeLayoutBuilder builder,
-        BlockCompressRecipe recipe
+        List<BlockStatePredicate> blockStatePredicateList
     ) {
-
         List<ItemIngredientPredicate> ingerdientList = new ArrayList<>();
-        for (BlockStatePredicate blockStatePredicate : recipe.getInputs()) {
+        for (BlockStatePredicate blockStatePredicate : blockStatePredicateList) {
             for (BlockState blockState : blockStatePredicate.constructStatesForRender()) {
                 Block block = blockState.getBlock();
                 Item item = block.asItem();
@@ -41,11 +41,7 @@ public class JeaSlotUtil {
 
         int size = ingerdientList.size();
         if (size == 0) return;
-        if (size == 1) {
-            ItemIngredientPredicate ingredient = ingerdientList.getFirst();
-            IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.INPUT, 0, 0);
-            slot.addIngredients(Ingredient.of(ingredient.getItems()));
-        } else if (size <= 4) {
+        if (size <= 4) {
             for (int index = 0; index < size; index++) {
                 int startX = 11;
                 int startY = 15;
@@ -65,12 +61,21 @@ public class JeaSlotUtil {
         }
     }
 
-    public static void drawOutputSlots(
+    public static void addInputSlots(
         IRecipeLayoutBuilder builder,
-        BlockCompressRecipe recipe
+        BlockStatePredicate blockStatePredicate
+    ) {
+        List<BlockStatePredicate> predicateList = new ArrayList<>();
+        predicateList.add(blockStatePredicate);
+        addInputSlots(builder, predicateList);
+    }
+
+    public static void addOutputSlots(
+        IRecipeLayoutBuilder builder,
+        List<ChanceBlockState> itemStackList
     ) {
         List<ChanceItemStack> chanceItemStacks = new ArrayList<>();
-        for (ChanceBlockState chanceBlockState : recipe.getResults()) {
+        for (ChanceBlockState chanceBlockState : itemStackList) {
             BlockState blockState = chanceBlockState.getState();
             Block block = blockState.getBlock();
             Item item = block.asItem();
@@ -79,6 +84,41 @@ public class JeaSlotUtil {
             chanceItemStacks.add(chanceItemStack);
             JeiSlotUtil.addOutputSlots(builder, chanceItemStacks);
         }
+    }
+
+    public static void addBulgingCategoryFluidSlots(
+        IRecipeLayoutBuilder builder,
+        BulgingRecipe recipe
+    ) {
+        HasCauldronSimple cauldronSimple = recipe.getHasCauldron();
+        Block block = cauldronSimple.getFluidCauldron();
+        CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(block);
+        if (cauldronFluidContent == null) return;
+        Fluid fluid = cauldronFluidContent.fluid;
+        int consume = 1000;
+        if (recipe.isConsumeFluid()) {
+            consume = 250;
+        }
+        if (recipe.isFromWater()) {
+            builder.addOutputSlot(47, 37).addFluidStack(fluid, consume);
+        } else if (recipe.isProduceFluid()) {
+            builder.addOutputSlot(107, 37).addFluidStack(fluid);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    public static void tryRenderFluidStack(
+        IRecipeLayoutBuilder builder,
+        HasCauldronSimple cauldronSimple
+    ) {
+        if (cauldronSimple == null) return;
+        Block block = cauldronSimple.getFluidCauldron();
+        CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(block);
+        if (cauldronFluidContent == null) return;
+        Fluid fluid = cauldronFluidContent.fluid;
+        int amount = cauldronSimple.getConsume();
+        if (amount == 0) amount = 1000;
+        builder.addInputSlot(0, 0).addFluidStack(fluid, amount);
     }
 
     public static List<ItemIngredientPredicate> ingredientPredicateList (ItemStack itemStack) {
