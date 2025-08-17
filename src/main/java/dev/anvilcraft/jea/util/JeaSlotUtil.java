@@ -1,5 +1,8 @@
 package dev.anvilcraft.jea.util;
 
+import dev.dubhe.anvilcraft.init.ModBlocks;
+import dev.dubhe.anvilcraft.integration.jei.recipe.CementStainingRecipe;
+import dev.dubhe.anvilcraft.integration.jei.recipe.ColoredConcreteRecipe;
 import dev.dubhe.anvilcraft.integration.jei.util.JeiSlotUtil;
 import dev.dubhe.anvilcraft.recipe.anvil.util.BlockStatePredicate;
 import dev.dubhe.anvilcraft.recipe.anvil.util.ItemIngredientPredicate;
@@ -8,7 +11,6 @@ import dev.dubhe.anvilcraft.recipe.anvil.wrap.components.ChanceBlockState;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.components.ChanceItemStack;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.components.HasCauldronSimple;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -100,10 +102,32 @@ public class JeaSlotUtil {
             consume = 250;
         }
         if (recipe.isFromWater()) {
-            builder.addOutputSlot(47, 37).addFluidStack(fluid, consume);
+            builder.addInputSlot(47, 37).addFluidStack(fluid, consume);
         } else if (recipe.isProduceFluid()) {
             builder.addOutputSlot(107, 37).addFluidStack(fluid);
         }
+    }
+
+    public static void addCementStainingCategoryFluidSlots(
+        IRecipeLayoutBuilder builder,
+        CementStainingRecipe recipe
+    ) {
+        CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(recipe.resultBlock());
+        if (cauldronFluidContent == null) return;
+        Fluid fluid = cauldronFluidContent.fluid;
+        builder.addOutputSlot(107, 37).addFluidStack(fluid);
+    }
+
+    public static void addConcreteCategoryFluidSlots(
+        IRecipeLayoutBuilder builder,
+        ColoredConcreteRecipe recipe
+    ) {
+        BlockState blockState = ModBlocks.CEMENT_CAULDRONS.get(recipe.color()).getDefaultState();
+        Block block = blockState.getBlock();
+        CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(block);
+        if (cauldronFluidContent == null) return;
+        Fluid fluid = cauldronFluidContent.fluid;
+        builder.addInputSlot(47, 37).addFluidStack(fluid);
     }
 
     @SuppressWarnings("deprecation")

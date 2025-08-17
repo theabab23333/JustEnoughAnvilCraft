@@ -7,8 +7,9 @@
     "AbstractProgressCategoryMixin",
     "BlockCompressCategoryMixin",
     "BlockCrushCategoryMixin",
-    "BoilingCategoryMixin",
-    "BulgingCategoryMixin"
+    "BulgingCategoryMixin",
+    "CementStainingCategoryMixin",
+    "ConcreteCategoryMixin"
   ],
   "client": [
   ],
