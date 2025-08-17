@@ -7,6 +7,9 @@ import dev.dubhe.anvilcraft.integration.jei.util.JeiSlotUtil;
 import dev.dubhe.anvilcraft.recipe.anvil.util.BlockStatePredicate;
 import dev.dubhe.anvilcraft.recipe.anvil.util.ItemIngredientPredicate;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BulgingRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.ItemInjectRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.SqueezingRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.TimeWarpRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.components.ChanceBlockState;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.components.ChanceItemStack;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.components.HasCauldronSimple;
@@ -130,12 +133,34 @@ public class JeaSlotUtil {
         builder.addInputSlot(47, 37).addFluidStack(fluid);
     }
 
-    @SuppressWarnings("deprecation")
-    public static void tryRenderFluidStack(
+    public static void addItemInjectCategorySlots(
+        IRecipeLayoutBuilder builder,
+        ItemInjectRecipe recipe
+    ) {
+
+    }
+
+    public static void addSqueezingCategorySlots(
+        IRecipeLayoutBuilder builder,
+        SqueezingRecipe recipeHolder
+    ) {
+
+    }
+
+    public static void addTimeWarpCategorySlots(
+        IRecipeLayoutBuilder builder,
+        TimeWarpRecipe recipeHolder
+    ) {
+
+    }
+
+    public static void addAbstractProgressCategoryFluidSlots(
         IRecipeLayoutBuilder builder,
         HasCauldronSimple cauldronSimple
     ) {
         if (cauldronSimple == null) return;
+        cauldronSimple.getFluidCauldron();
+        System.out.println(cauldronSimple.getFluidCauldron());
         Block block = cauldronSimple.getFluidCauldron();
         CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(block);
         if (cauldronFluidContent == null) return;

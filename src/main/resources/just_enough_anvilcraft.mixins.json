@@ -9,7 +9,10 @@
     "BlockCrushCategoryMixin",
     "BulgingCategoryMixin",
     "CementStainingCategoryMixin",
-    "ConcreteCategoryMixin"
+    "ConcreteCategoryMixin",
+    "ItemInjectCategoryMixin",
+    "SqueezingCategoryMixin",
+    "TimeWarpCategoryMixin"
   ],
   "client": [
   ],
