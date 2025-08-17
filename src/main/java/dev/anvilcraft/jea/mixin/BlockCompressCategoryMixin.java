@@ -9,10 +9,13 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.recipe.IFocusGroup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.List;
 
 @Mixin(BlockCompressCategory.class)
 public class BlockCompressCategoryMixin {
@@ -24,10 +27,7 @@ public class BlockCompressCategoryMixin {
         CallbackInfo ci) {
 
         BlockCompressRecipe recipe = recipeHolder.value();
-
-        for (BlockStatePredicate input : recipe.getInputs()) {
-            JeaSlotUtil.addInputSlots(builder, input.getBlocks().stream().map(holder -> new ItemStack(holder.value())).toArray(ItemStack[]::new));
-        }
+        JeaSlotUtil.addInputSlots(builder, recipe);
 
         for (ChanceBlockState output : recipe.getResults()) {
             JeaSlotUtil.drawOutputSlots(builder, output);
