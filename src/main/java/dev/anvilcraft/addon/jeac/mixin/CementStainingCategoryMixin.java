@@ -18,6 +18,6 @@ public class CementStainingCategoryMixin {
         CementStainingRecipe recipeHolder,
         IFocusGroup focuses,
         CallbackInfo ci) {
-        RecipeUtil.addCementStainingCategoryFluidSlots(builder, recipeHolder);
+        RecipeUtil.findCementStainingCategory(builder, recipeHolder);
     }
 }

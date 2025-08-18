@@ -1,15 +1,19 @@
 package dev.anvilcraft.addon.jeac.util;
 
+import dev.dubhe.anvilcraft.init.ModBlocks;
 import dev.dubhe.anvilcraft.integration.jei.recipe.CementStainingRecipe;
+import dev.dubhe.anvilcraft.integration.jei.recipe.ColoredConcreteRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.AbstractProcessRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BulgingRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import static dev.anvilcraft.addon.jeac.util.JeaSlotUtil.*;
 
 public class RecipeUtil {
-    public static <T extends AbstractProcessRecipe<?>> void findAbstractHasCauldron (IRecipeLayoutBuilder builder, RecipeHolder<T> recipe) {
+    public static <T extends AbstractProcessRecipe<?>> void findAbstractHasCauldron(IRecipeLayoutBuilder builder, RecipeHolder<T> recipe) {
         if (recipe.value().getHasCauldron() != null) {
             int consume = recipe.value().getHasCauldron().getConsume();
             if (consume < 0) addFluidStackInputSlots(builder, 21, 42, recipe.value().getHasCauldron());
@@ -17,17 +21,24 @@ public class RecipeUtil {
         }
     }
 
-    public static void findBulgingCategory (IRecipeLayoutBuilder builder, BulgingRecipe recipe) {
+    public static void findBulgingCategory(IRecipeLayoutBuilder builder, BulgingRecipe recipe) {
         if (recipe.getHasCauldron() != null) {
             if (recipe.isConsumeFluid()) addFluidStackInputSlots(builder, 21, 41, recipe.getHasCauldron().getFluidCauldron());
         }
     }
 
-    public static void addCementStainingCategoryFluidSlots(IRecipeLayoutBuilder builder, CementStainingRecipe recipe) {
+    public static void findCementStainingCategory(IRecipeLayoutBuilder builder, CementStainingRecipe recipe) {
         if (recipe.resultBlock() != null) {
             addFluidStackOutputSlots(builder, 125, 42, recipe.resultBlock());
         }
     }
+
+    public static void findConcreteCategoryFluidSlots(IRecipeLayoutBuilder builder, ColoredConcreteRecipe recipe) {
+        BlockState blockState = ModBlocks.CEMENT_CAULDRONS.get(recipe.color()).getDefaultState();
+        Block block = blockState.getBlock();
+        addFluidStackInputSlots(builder, 21, 41, block);
+    }
+
 
 
 
@@ -61,7 +72,6 @@ public class RecipeUtil {
 //        }
 //    }
 //
-
 
 //    public static void addItemInputSlots(IRecipeLayoutBuilder builder, List<ItemIngredientPredicate> mergedIngredients) {
 //        int size = mergedIngredients.size();

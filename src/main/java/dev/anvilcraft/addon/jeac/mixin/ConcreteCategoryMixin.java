@@ -1,5 +1,6 @@
 package dev.anvilcraft.addon.jeac.mixin;
 
+import dev.anvilcraft.addon.jeac.util.RecipeUtil;
 import dev.dubhe.anvilcraft.integration.jei.category.anvil.ConcreteCategory;
 import dev.dubhe.anvilcraft.integration.jei.recipe.ColoredConcreteRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -17,6 +18,6 @@ public class ConcreteCategoryMixin {
         ColoredConcreteRecipe recipeHolder,
         IFocusGroup focuses,
         CallbackInfo ci) {
-//        JeaSlotUtil.addConcreteCategoryFluidSlots(builder, recipeHolder);
+        RecipeUtil.findConcreteCategoryFluidSlots(builder, recipeHolder);
     }
 }
