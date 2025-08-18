@@ -1,5 +1,6 @@
 package dev.anvilcraft.addon.jeac.mixin;
 
+import dev.anvilcraft.addon.jeac.util.RecipeUtil;
 import dev.dubhe.anvilcraft.integration.jei.category.anvil.ItemInjectCategory;
 import dev.dubhe.anvilcraft.integration.jei.util.JeiRenderHelper;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.ItemInjectRecipe;
@@ -24,57 +25,13 @@ import java.util.List;
 
 @Mixin(ItemInjectCategory.class)
 public class ItemInjectCategoryMixin {
-    @Shadow @Final private ITickTimer timer;
 
-    @Shadow @Final private IDrawable arrowIn;
-
-    @Shadow @Final private IDrawable arrowOut;
-
-    @Shadow @Final private IDrawable slot;
-
-    @Inject(method = "setRecipe*", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "setRecipe*", at = @At("TAIL"))
     public void setRecipe(
         IRecipeLayoutBuilder builder,
         RecipeHolder<ItemInjectRecipe> recipeHolder,
         IFocusGroup focuses,
         CallbackInfo ci) {
-        ItemInjectRecipe recipe = recipeHolder.value();
-//        JeaSlotUtil.addItemInjectCategorySlots(builder, recipe);
-//        JeaSlotUtil.addItemInputSlots(builder, recipe.getInputItems());
-//        ci.cancel();
-    }
-
-    @Inject(method = "draw*", at = @At("HEAD"), cancellable = true)
-    public void draw(
-        RecipeHolder<ItemInjectRecipe> recipeHolder,
-        IRecipeSlotsView recipeSlotsView,
-        GuiGraphics guiGraphics,
-        double mouseX,
-        double mouseY,
-        CallbackInfo ci) {
-        ItemInjectRecipe recipe = recipeHolder.value();
-        float anvilYOffset = JeiRenderHelper.getAnvilAnimationOffset(timer);
-        RenderHelper.renderBlock(
-            guiGraphics,
-            Blocks.ANVIL.defaultBlockState(),
-            81,
-            22 + anvilYOffset,
-            20,
-            12,
-            RenderHelper.SINGLE_BLOCK);
-
-        List<BlockState> input = recipe.getFirstInputBlock().constructStatesForRender();
-        if (input.isEmpty()) return;
-        BlockState renderedState = input.get((int) ((System.currentTimeMillis() / 1000) % input.size()));
-        if (renderedState == null) return;
-        RenderHelper.renderBlock(guiGraphics, renderedState, 81, 40, 10, 12, RenderHelper.SINGLE_BLOCK);
-
-        arrowIn.draw(guiGraphics, 54, 32);
-        arrowOut.draw(guiGraphics, 92, 31);
-
-        slot.draw(guiGraphics, 34, 23);
-        RenderHelper.renderBlock(
-            guiGraphics, recipe.getFirstResultBlock().getState(), 118, 28, 0, 12, RenderHelper.SINGLE_BLOCK);
-        ci.cancel();
+        RecipeUtil.findItemInjectCategorySlots(builder, recipeHolder.value());
     }
 }

@@ -5,9 +5,9 @@ import dev.dubhe.anvilcraft.integration.jei.recipe.CementStainingRecipe;
 import dev.dubhe.anvilcraft.integration.jei.recipe.ColoredConcreteRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.AbstractProcessRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BulgingRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.ItemInjectRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import static dev.anvilcraft.addon.jeac.util.JeaSlotUtil.*;
@@ -16,8 +16,8 @@ public class RecipeUtil {
     public static <T extends AbstractProcessRecipe<?>> void findAbstractHasCauldron(IRecipeLayoutBuilder builder, RecipeHolder<T> recipe) {
         if (recipe.value().getHasCauldron() != null) {
             int consume = recipe.value().getHasCauldron().getConsume();
-            if (consume < 0) addFluidStackInputSlots(builder, 21, 42, recipe.value().getHasCauldron());
-            if (consume >= 0) addFluidStackOutputSlots(builder, 125, 42, recipe.value().getHasCauldron());
+            if (consume < 0) addFluidStackInputSlots(builder, 21, 41, recipe.value().getHasCauldron());
+            if (consume >= 0) addFluidStackOutputSlots(builder, 125, 41, recipe.value().getHasCauldron());
         }
     }
 
@@ -29,17 +29,19 @@ public class RecipeUtil {
 
     public static void findCementStainingCategory(IRecipeLayoutBuilder builder, CementStainingRecipe recipe) {
         if (recipe.resultBlock() != null) {
-            addFluidStackOutputSlots(builder, 125, 42, recipe.resultBlock());
+            addFluidStackOutputSlots(builder, 125, 41, recipe.resultBlock());
         }
     }
 
     public static void findConcreteCategoryFluidSlots(IRecipeLayoutBuilder builder, ColoredConcreteRecipe recipe) {
         BlockState blockState = ModBlocks.CEMENT_CAULDRONS.get(recipe.color()).getDefaultState();
-        Block block = blockState.getBlock();
-        addFluidStackInputSlots(builder, 21, 41, block);
+        addFluidStackInputSlots(builder, 46, 36, blockState.getBlock());
     }
 
-
+    public static void findItemInjectCategorySlots(IRecipeLayoutBuilder builder, ItemInjectRecipe recipe) {
+        addBlockStatePredicateInputSlots(builder, recipe.getInputBlocks(), 21, 41);
+        addChanceBlockStateInputSlots(builder, recipe.getResultBlocks(), 125, 41);
+    }
 
 
     //    public static void addBlockInputSlots(IRecipeLayoutBuilder builder, List<BlockStatePredicate> blockStatePredicateList, int startX, int startY) {
@@ -125,15 +127,6 @@ public class RecipeUtil {
 //
 
 
-//
-//    public static void addConcreteCategoryFluidSlots(IRecipeLayoutBuilder builder, ColoredConcreteRecipe recipe) {
-//        BlockState blockState = ModBlocks.CEMENT_CAULDRONS.get(recipe.color()).getDefaultState();
-//        Block block = blockState.getBlock();
-//        CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(block);
-//        if (cauldronFluidContent == null) return;
-//        Fluid fluid = cauldronFluidContent.fluid;
-//        addFluidStackInputSlots(builder, fluid, 47, 37);
-//    }
 //
 //    public static void addItemInjectCategorySlots(IRecipeLayoutBuilder builder, ItemInjectRecipe recipe) {
 //        addBlockInputSlots(builder, recipe.getInputBlocks(), 35, 42);

@@ -2,21 +2,31 @@ package dev.anvilcraft.addon.jeac.util;
 
 import com.google.common.collect.ImmutableList;
 import dev.dubhe.anvilcraft.init.ModBlocks;
+import dev.dubhe.anvilcraft.recipe.anvil.util.BlockStatePredicate;
+import dev.dubhe.anvilcraft.recipe.anvil.util.ItemIngredientPredicate;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.components.ChanceBlockState;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.components.HasCauldronSimple;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static dev.anvilcraft.addon.jeac.util.CauldronFluidUtil.*;
+import static dev.anvilcraft.addon.jeac.util.IngredientUtil.*;
+import static dev.dubhe.anvilcraft.integration.jei.util.JeiSlotUtil.*;
 
 public class JeaSlotUtil {
-    // 部分(大多数)代码来自本体JeiSlotUtil
 
     public static void addFluidAmountTooltips(IRecipeSlotBuilder slot, int count) {
         ImmutableList.Builder<Component> tooltipLines = new ImmutableList.Builder<>();
@@ -85,5 +95,41 @@ public class JeaSlotUtil {
 
     public static void addItemStackOutputSlots(IRecipeLayoutBuilder builder, ItemStack itemStack, int x, int y) {
         builder.addInputSlot(x, y).addItemStack(itemStack);
+    }
+
+    public static void addBlockStatePredicateInputSlots(IRecipeLayoutBuilder builder, List<BlockStatePredicate> blockStatePredicateList, int startX, int startY) {
+        List<ItemIngredientPredicate> ingerdientList = new ArrayList<>();
+        for (BlockStatePredicate blockStatePredicate : blockStatePredicateList) {
+            for (BlockState blockState : blockStatePredicate.constructStatesForRender()) {
+                Block block = blockState.getBlock();
+                Item item = block.asItem();
+                ingerdientList.addAll(ingredientPredicateList(item));
+            }
+        }
+        int size = ingerdientList.size();
+        if (size == 0) return;
+        if (size <= 4) {
+            for (int index = 0; index < size; index++) {
+                int row = index / 2;
+                int col = index % 2;
+                addSlotWithCount(builder, startX + 16 * col, startY + 16 * row, ingerdientList.get(index));
+            }
+        } else {
+            for (int index = 0; index < size; index++) {
+                if (index > 12) break;
+                startX = 0;
+                startY = 0;
+                int row = index / 3;
+                int col = index % 3;
+                addSlotWithCount(builder, startX + 16 * col, startY + 16 * row, ingerdientList.get(index));
+            }
+        }
+    }
+
+    public static void addChanceBlockStateInputSlots(IRecipeLayoutBuilder builder, List<ChanceBlockState> chanceBlockStates, int x, int y) {
+        for (ChanceBlockState chanceBlockState : chanceBlockStates) {
+            Item item = chanceBlockState.getState().getBlock().asItem();
+            IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.OUTPUT, x, y).addItemStack(item.getDefaultInstance());
+        }
     }
 }
