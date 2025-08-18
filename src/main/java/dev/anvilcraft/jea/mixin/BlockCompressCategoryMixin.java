@@ -37,8 +37,8 @@ public abstract class BlockCompressCategoryMixin {
         IFocusGroup focuses,
         CallbackInfo ci) {
         BlockCompressRecipe recipe = recipeHolder.value();
-        JeaSlotUtil.addInputSlots(builder, recipe.getInputs());
-        JeaSlotUtil.addOutputSlots(builder, recipe.getResults());
+        JeaSlotUtil.addInputSlots(builder, recipe.getInputBlocks());
+        JeaSlotUtil.addOutputSlots(builder, recipe.getResultBlocks(), 120, 15);
     }
 
     @Inject(method = "draw*", at = @At("HEAD"), cancellable = true)
@@ -64,8 +64,8 @@ public abstract class BlockCompressCategoryMixin {
             RenderHelper.SINGLE_BLOCK
         );
 
-        for (int i = recipe.getInputs().size() - 1; i >= 0; i--) {
-            List<BlockState> input = recipe.getInputs().get(i).constructStatesForRender();
+        for (int i = recipe.getInputBlocks().size() - 1; i >= 0; i--) {
+            List<BlockState> input = recipe.getInputBlocks().get(i).constructStatesForRender();
             if (input.isEmpty()) continue;
             BlockState renderedState = input.get((int) ((System.currentTimeMillis() / 1000) % input.size()));
             if (renderedState == null) continue;
@@ -82,8 +82,8 @@ public abstract class BlockCompressCategoryMixin {
         RenderHelper.renderBlock(
             guiGraphics, Blocks.ANVIL.defaultBlockState(), 110, 30, 10, 12, RenderHelper.SINGLE_BLOCK);
         RenderHelper.renderBlock(
-            guiGraphics, recipe.getResults().get((int) ((System.currentTimeMillis() / 1000) % recipe.getResults().size())).getState(),
-            110, 40, 0, 12, RenderHelper.SINGLE_BLOCK);
+            guiGraphics, recipe.getFirstResultBlock().getState(), 110, 40, 0, 12, RenderHelper.SINGLE_BLOCK
+        );
         ci.cancel();
     }
 }
