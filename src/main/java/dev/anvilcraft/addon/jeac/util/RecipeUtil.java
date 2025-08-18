@@ -25,7 +25,7 @@ public class RecipeUtil {
 
     public static void addCementStainingCategoryFluidSlots(IRecipeLayoutBuilder builder, CementStainingRecipe recipe) {
         if (recipe.resultBlock() != null) {
-            addFluidStackOutputSlots(builder, 21, 41, recipe.resultBlock());
+            addFluidStackOutputSlots(builder, 125, 42, recipe.resultBlock());
         }
     }
 
@@ -113,36 +113,8 @@ public class RecipeUtil {
 //        }
 //    }
 //
-//    public static void addBulgingCategoryFluidSlots(IRecipeLayoutBuilder builder, BulgingRecipe recipe) {
-//        HasCauldronSimple cauldronSimple = recipe.getHasCauldron();
-//        Block block = cauldronSimple.getFluidCauldron();
-//        // 不会写了 所以特判
-//        if (block.defaultBlockState().is(Blocks.POWDER_SNOW_CAULDRON))
-//            builder.addInputSlot(47, 37).addItemLike(Items.POWDER_SNOW_BUCKET);
-//        CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(block);
-//        if (cauldronFluidContent == null) return;
-//        Fluid fluid = cauldronFluidContent.fluid;
-//        if (recipe.isFromWater()) {
-//            addFluidStackOutputSlots(builder, fluid, 47, 37);
-//        } else if (recipe.isConsumeFluid()) {
-//            addFluidStackInputSlots(builder, fluid, 47, 37, 333);
-//        }
-//
-//        if (recipe.getResultItems().isEmpty()) {
-//            block = recipe.getHasCauldron().getTransformCauldron();
-//            cauldronFluidContent = CauldronFluidContent.getForBlock(block);
-//            if (cauldronFluidContent == null) return;
-//            fluid = cauldronFluidContent.fluid;
-//            addFluidStackOutputSlots(builder, fluid, 107, 37);
-//        }
-//    }
-//
-//    public static void addCementStainingCategoryFluidSlots(IRecipeLayoutBuilder builder, CementStainingRecipe recipe) {
-//        CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(recipe.resultBlock());
-//        if (cauldronFluidContent == null) return;
-//        Fluid fluid = cauldronFluidContent.fluid;
-//        addFluidStackOutputSlots(builder, fluid, 107, 37);
-//    }
+
+
 //
 //    public static void addConcreteCategoryFluidSlots(IRecipeLayoutBuilder builder, ColoredConcreteRecipe recipe) {
 //        BlockState blockState = ModBlocks.CEMENT_CAULDRONS.get(recipe.color()).getDefaultState();
