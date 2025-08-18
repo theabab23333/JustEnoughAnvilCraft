@@ -1,4 +1,4 @@
-package dev.anvilcraft.jea.data;
+package dev.anvilcraft.jeac.data;
 
 import com.tterrag.registrate.providers.RegistrateLangProvider;
 

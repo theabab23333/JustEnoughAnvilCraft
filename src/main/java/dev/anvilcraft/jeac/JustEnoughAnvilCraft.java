@@ -1,10 +1,15 @@
-package dev.anvilcraft.jea;
+package dev.anvilcraft.jeac;
 
 import com.tterrag.registrate.Registrate;
+import dev.anvilcraft.jeac.data.ModDataGen;
 import net.neoforged.fml.common.Mod;
 
 @Mod(JustEnoughAnvilCraft.MOD_ID)
 public class JustEnoughAnvilCraft {
-    public static final String MOD_ID = "just_enough_anvilcraft";
+    public static final String MOD_ID = "jeac";
     public static final Registrate REGISTRATE = Registrate.create(MOD_ID);
+
+    public JustEnoughAnvilCraft() {
+        ModDataGen.init();
+    }
 }

@@ -1,4 +1,4 @@
-package dev.anvilcraft.jea.util;
+package dev.anvilcraft.jeac.util;
 
 import com.google.common.collect.ImmutableList;
 import dev.dubhe.anvilcraft.init.ModBlocks;
@@ -22,6 +22,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -93,6 +94,16 @@ public class JeaSlotUtil {
                 int col = index % 2;
                 addSlotWithCount(builder, x + 16 * col, y + 16 * row, ingerdientList.get(index));
             }
+        }
+    }
+
+    public static void addItemInputSlots(IRecipeLayoutBuilder builder, List<ItemIngredientPredicate> mergedIngredients) {
+        int size = mergedIngredients.size();
+        if (size == 0) return;
+        if (size == 1) {
+            ItemIngredientPredicate ingredient = mergedIngredients.getFirst();
+            IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.INPUT, 35, 24);
+            slot.addIngredients(Ingredient.of(ingredient.getItems()));
         }
     }
 
@@ -177,7 +188,7 @@ public class JeaSlotUtil {
     }
 
     public static void addItemInjectCategorySlots(IRecipeLayoutBuilder builder, ItemInjectRecipe recipe) {
-        addInputSlots(builder, recipe.getInputBlocks(), 21, 42);
+        addInputSlots(builder, recipe.getInputBlocks(), 35, 42);
         if (!recipe.getResultBlocks().isEmpty()) addOutputSlots(builder, recipe.getResultBlocks(), 110, 42);
     }
 

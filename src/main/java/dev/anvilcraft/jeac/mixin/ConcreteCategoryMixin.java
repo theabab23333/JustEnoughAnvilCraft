@@ -1,6 +1,6 @@
-package dev.anvilcraft.jea.mixin;
+package dev.anvilcraft.jeac.mixin;
 
-import dev.anvilcraft.jea.util.JeaSlotUtil;
+import dev.anvilcraft.jeac.util.JeaSlotUtil;
 import dev.dubhe.anvilcraft.integration.jei.category.anvil.ConcreteCategory;
 import dev.dubhe.anvilcraft.integration.jei.recipe.ColoredConcreteRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
