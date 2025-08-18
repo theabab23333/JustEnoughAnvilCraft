@@ -1,7 +1,7 @@
-package dev.anvilcraft.jeac;
+package dev.anvilcraft.addon.jeac;
 
 import com.tterrag.registrate.Registrate;
-import dev.anvilcraft.jeac.data.ModDataGen;
+import dev.anvilcraft.addon.jeac.data.ModDataGen;
 import net.neoforged.fml.common.Mod;
 
 @Mod(JustEnoughAnvilCraft.MOD_ID)

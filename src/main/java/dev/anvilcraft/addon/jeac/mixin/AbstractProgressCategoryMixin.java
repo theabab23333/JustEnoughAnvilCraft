@@ -1,7 +1,6 @@
-package dev.anvilcraft.jeac.mixin;
+package dev.anvilcraft.addon.jeac.mixin;
 
-import dev.anvilcraft.jeac.util.JeaSlotUtil;
-import dev.anvilcraft.jeac.util.RecipeUtil;
+import dev.anvilcraft.addon.jeac.util.RecipeUtil;
 import dev.dubhe.anvilcraft.integration.jei.category.anvil.AbstractProgressCategory;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.AbstractProcessRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;

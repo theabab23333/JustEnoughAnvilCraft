@@ -1,6 +1,5 @@
-package dev.anvilcraft.jeac.mixin;
+package dev.anvilcraft.addon.jeac.mixin;
 
-import dev.anvilcraft.jeac.util.JeaSlotUtil;
 import dev.dubhe.anvilcraft.integration.jei.category.anvil.BlockCompressCategory;
 import dev.dubhe.anvilcraft.integration.jei.util.JeiRenderHelper;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BlockCompressRecipe;

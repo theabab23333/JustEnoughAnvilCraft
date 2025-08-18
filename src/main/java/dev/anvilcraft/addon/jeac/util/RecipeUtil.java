@@ -1,15 +1,39 @@
-package dev.anvilcraft.jeac.util;
+package dev.anvilcraft.addon.jeac.util;
 
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.AbstractProcessRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.BulgingRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import static dev.anvilcraft.jeac.util.JeaSlotUtil.addFluidStackInputSlots;
+import static dev.anvilcraft.addon.jeac.util.JeaSlotUtil.addFluidStackInputSlots;
+import static dev.anvilcraft.addon.jeac.util.JeaSlotUtil.addFluidStackOutputSlots;
 
 public class RecipeUtil {
-    public static <T extends AbstractProcessRecipe<?>> void findAbstractHasCauldron (IRecipeLayoutBuilder builder, RecipeHolder<T> recipeHolder) {
-        if (recipeHolder.value().getHasCauldron() != null)
-            addFluidStackInputSlots(builder, 21, 42, recipeHolder.value().getHasCauldron());
+    public static <T extends AbstractProcessRecipe<?>> void findAbstractHasCauldron (IRecipeLayoutBuilder builder, RecipeHolder<T> recipe) {
+        if (recipe.value().getHasCauldron() != null) {
+            int consume = recipe.value().getHasCauldron().getConsume();
+            if (consume < 0) addFluidStackInputSlots(builder, 21, 42, recipe.value().getHasCauldron());
+            if (consume >= 0) addFluidStackOutputSlots(builder, 125, 42, recipe.value().getHasCauldron());
+        }
+    }
+
+    public static void findBulgingCategory (IRecipeLayoutBuilder builder, BulgingRecipe recipe) {
+        if (recipe.getHasCauldron() != null) {
+            if (recipe.isConsumeFluid()) addFluidStackInputSlots(builder, 21, 41, recipe.getHasCauldron().getFluidCauldron());
+        }
+
+//        HasCauldronSimple cauldronSimple = recipe.getHasCauldron();
+//        Block block = cauldronSimple.getFluidCauldron();
+//        // 不会写了 所以特判
+//        if (block.defaultBlockState().is(Blocks.POWDER_SNOW_CAULDRON))
+//            builder.addInputSlot(47, 37).addItemLike(Items.POWDER_SNOW_BUCKET);
+//        CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(block);
+//        if (cauldronFluidContent == null) return;
+//        Fluid fluid = cauldronFluidContent.fluid;
+//        if (recipe.isFromWater()) {
+//            addFluidStackOutputSlots(builder, fluid, 47, 37);
+//        } else if (recipe.isConsumeFluid()) {
+//            addFluidStackInputSlots(builder, fluid, 47, 37, 333);
     }
 
     //    public static void addBlockInputSlots(IRecipeLayoutBuilder builder, List<BlockStatePredicate> blockStatePredicateList, int startX, int startY) {
@@ -42,6 +66,8 @@ public class RecipeUtil {
 //        }
 //    }
 //
+
+
 //    public static void addItemInputSlots(IRecipeLayoutBuilder builder, List<ItemIngredientPredicate> mergedIngredients) {
 //        int size = mergedIngredients.size();
 //        if (size == 0) return;
@@ -63,7 +89,7 @@ public class RecipeUtil {
 //            builder.addInputSlot(x, y).addFluidStack(fluid);
 //        } else {
 //            IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.INPUT, x, y).addFluidStack(fluid, amount);
-//            JeaSlotUtil.addTooltips(slot, amount);
+//            JeaSlotUtil.addFluidAmountTooltips(slot, amount);
 //        }
 //    }
 //
@@ -76,7 +102,7 @@ public class RecipeUtil {
 //            builder.addOutputSlot(x, y).addFluidStack(fluid);
 //        } else {
 //            IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.OUTPUT, x, y).addFluidStack(fluid, amount);
-//            JeaSlotUtil.addTooltips(slot, amount);
+//            JeaSlotUtil.addFluidAmountTooltips(slot, amount);
 //        }
 //    }
 //
@@ -88,7 +114,7 @@ public class RecipeUtil {
 //        for (ChanceBlockState chanceBlockState : chanceBlockStates) {
 //            Item item = chanceBlockState.getState().getBlock().asItem();
 //            IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.OUTPUT, x, y).addItemStack(item.getDefaultInstance());
-//            JeiRecipeUtil.addTooltips(slot, 1, chanceBlockState.getChance());
+//            JeiRecipeUtil.addFluidAmountTooltips(slot, 1, chanceBlockState.getChance());
 //        }
 //    }
 //

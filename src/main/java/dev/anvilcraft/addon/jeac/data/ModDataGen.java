@@ -1,12 +1,12 @@
-package dev.anvilcraft.jeac.data;
+package dev.anvilcraft.addon.jeac.data;
 
 import com.tterrag.registrate.providers.ProviderType;
-import dev.anvilcraft.jeac.JustEnoughAnvilCraft;
+import dev.anvilcraft.addon.jeac.JustEnoughAnvilCraft;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-import static dev.anvilcraft.jeac.JustEnoughAnvilCraft.REGISTRATE;
+import static dev.anvilcraft.addon.jeac.JustEnoughAnvilCraft.REGISTRATE;
 
 @EventBusSubscriber(modid = JustEnoughAnvilCraft.MOD_ID)
 public class ModDataGen {

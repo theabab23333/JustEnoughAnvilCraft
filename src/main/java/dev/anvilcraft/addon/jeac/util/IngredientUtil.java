@@ -1,4 +1,4 @@
-package dev.anvilcraft.jeac.util;
+package dev.anvilcraft.addon.jeac.util;
 
 import dev.dubhe.anvilcraft.recipe.anvil.util.ItemIngredientPredicate;
 import net.minecraft.tags.TagKey;

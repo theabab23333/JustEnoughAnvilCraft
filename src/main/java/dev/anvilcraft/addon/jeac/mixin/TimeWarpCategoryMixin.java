@@ -1,8 +1,7 @@
-package dev.anvilcraft.jeac.mixin;
+package dev.anvilcraft.addon.jeac.mixin;
 
-import dev.anvilcraft.jeac.util.JeaSlotUtil;
-import dev.dubhe.anvilcraft.integration.jei.category.anvil.BulgingCategory;
-import dev.dubhe.anvilcraft.recipe.anvil.wrap.BulgingRecipe;
+import dev.dubhe.anvilcraft.integration.jei.category.anvil.TimeWarpCategory;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.TimeWarpRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.recipe.IFocusGroup;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -11,15 +10,15 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(BulgingCategory.class)
-public abstract class BulgingCategoryMixin {
+@Mixin(TimeWarpCategory.class)
+public class TimeWarpCategoryMixin {
     @Inject(method = "setRecipe*", at = @At("TAIL"))
     public void setRecipe(
         IRecipeLayoutBuilder builder,
-        RecipeHolder<BulgingRecipe> recipeHolder,
+        RecipeHolder<TimeWarpRecipe> recipeHolder,
         IFocusGroup focuses,
         CallbackInfo ci) {
-        BulgingRecipe recipe = recipeHolder.value();
-//        JeaSlotUtil.addBulgingCategoryFluidSlots(builder, recipe);
+        TimeWarpRecipe recipe = recipeHolder.value();
+//        JeaSlotUtil.addTimeWarpCategorySlots(builder, recipe);
     }
 }

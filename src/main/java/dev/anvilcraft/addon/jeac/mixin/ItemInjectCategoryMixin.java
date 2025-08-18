@@ -1,6 +1,5 @@
-package dev.anvilcraft.jeac.mixin;
+package dev.anvilcraft.addon.jeac.mixin;
 
-import dev.anvilcraft.jeac.util.JeaSlotUtil;
 import dev.dubhe.anvilcraft.integration.jei.category.anvil.ItemInjectCategory;
 import dev.dubhe.anvilcraft.integration.jei.util.JeiRenderHelper;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.ItemInjectRecipe;
@@ -10,10 +9,7 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
