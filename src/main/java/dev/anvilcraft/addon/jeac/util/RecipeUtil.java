@@ -1,12 +1,12 @@
 package dev.anvilcraft.addon.jeac.util;
 
+import dev.dubhe.anvilcraft.integration.jei.recipe.CementStainingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.AbstractProcessRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BulgingRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import static dev.anvilcraft.addon.jeac.util.JeaSlotUtil.addFluidStackInputSlots;
-import static dev.anvilcraft.addon.jeac.util.JeaSlotUtil.addFluidStackOutputSlots;
+import static dev.anvilcraft.addon.jeac.util.JeaSlotUtil.*;
 
 public class RecipeUtil {
     public static <T extends AbstractProcessRecipe<?>> void findAbstractHasCauldron (IRecipeLayoutBuilder builder, RecipeHolder<T> recipe) {
@@ -21,20 +21,15 @@ public class RecipeUtil {
         if (recipe.getHasCauldron() != null) {
             if (recipe.isConsumeFluid()) addFluidStackInputSlots(builder, 21, 41, recipe.getHasCauldron().getFluidCauldron());
         }
-
-//        HasCauldronSimple cauldronSimple = recipe.getHasCauldron();
-//        Block block = cauldronSimple.getFluidCauldron();
-//        // 不会写了 所以特判
-//        if (block.defaultBlockState().is(Blocks.POWDER_SNOW_CAULDRON))
-//            builder.addInputSlot(47, 37).addItemLike(Items.POWDER_SNOW_BUCKET);
-//        CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(block);
-//        if (cauldronFluidContent == null) return;
-//        Fluid fluid = cauldronFluidContent.fluid;
-//        if (recipe.isFromWater()) {
-//            addFluidStackOutputSlots(builder, fluid, 47, 37);
-//        } else if (recipe.isConsumeFluid()) {
-//            addFluidStackInputSlots(builder, fluid, 47, 37, 333);
     }
+
+    public static void addCementStainingCategoryFluidSlots(IRecipeLayoutBuilder builder, CementStainingRecipe recipe) {
+        if (recipe.resultBlock() != null) {
+            addFluidStackOutputSlots(builder, 21, 41, recipe.resultBlock());
+        }
+    }
+
+
 
     //    public static void addBlockInputSlots(IRecipeLayoutBuilder builder, List<BlockStatePredicate> blockStatePredicateList, int startX, int startY) {
 //        List<ItemIngredientPredicate> ingerdientList = new ArrayList<>();

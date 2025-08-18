@@ -10,7 +10,6 @@ import net.neoforged.neoforge.fluids.CauldronFluidContent;
 
 public class CauldronFluidUtil {
     public static CauldronFluidContent getCauldronFluidContent(HasCauldronSimple cauldronSimple) {
-        Block block = cauldronSimple.getTransformCauldron();
         CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(cauldronSimple.getTransformCauldron());
         assert cauldronFluidContent != null;
         return cauldronFluidContent;

@@ -60,7 +60,30 @@ public class JeaSlotUtil {
         }
     }
 
+    public static void addFluidStackOutputSlots(IRecipeLayoutBuilder builder, int x, int y, Block block) {
+        if (isFluid(block)) {
+            Fluid fluid = getFluidInBlock(block);
+            if (fluid == null || fluid == Fluids.EMPTY) return;
+            int nowLevel = getLevelInNowBlock(block);
+            int maxLevel = getLevelInMaxBlock(block);
+            float levelAmount = (float) 1000 / maxLevel;
+            int nowAmount = (int) (levelAmount * nowLevel);
+            IRecipeSlotBuilder slot = builder.addOutputSlot(x, y).addFluidStack(fluid);
+            addFluidAmountTooltips(slot, nowAmount);
+        } else {
+            if (block.defaultBlockState().is(Blocks.POWDER_SNOW_CAULDRON)) {
+                addItemStackOutputSlots(builder, Items.POWDER_SNOW_BUCKET.getDefaultInstance(), x, y);
+            } else if (block.defaultBlockState().is(ModBlocks.HONEY_CAULDRON)) {
+                addItemStackOutputSlots(builder, Items.HONEY_BOTTLE.getDefaultInstance(), x, y);
+            }
+        }
+    }
+
     public static void addItemStackInputSlots(IRecipeLayoutBuilder builder, ItemStack itemStack, int x, int y) {
+        builder.addInputSlot(x, y).addItemStack(itemStack);
+    }
+
+    public static void addItemStackOutputSlots(IRecipeLayoutBuilder builder, ItemStack itemStack, int x, int y) {
         builder.addInputSlot(x, y).addItemStack(itemStack);
     }
 }
