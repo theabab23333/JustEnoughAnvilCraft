@@ -18,6 +18,6 @@ public class ConcreteCategoryMixin {
         ColoredConcreteRecipe recipeHolder,
         IFocusGroup focuses,
         CallbackInfo ci) {
-        RecipeUtil.findConcreteCategoryFluidSlots(builder, recipeHolder);
+        RecipeUtil.findConcreteCategory(builder, recipeHolder);
     }
 }

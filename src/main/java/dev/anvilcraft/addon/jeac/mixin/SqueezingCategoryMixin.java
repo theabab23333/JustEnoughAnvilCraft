@@ -19,6 +19,6 @@ public class SqueezingCategoryMixin {
         RecipeHolder<SqueezingRecipe> recipeHolder,
         IFocusGroup focuses,
         CallbackInfo ci) {
-        RecipeUtil.findSqueezingCategorySlots(builder, recipeHolder.value());
+        RecipeUtil.findSqueezingCategory(builder, recipeHolder.value());
     }
 }

@@ -19,6 +19,6 @@ public class TimeWarpCategoryMixin {
         RecipeHolder<TimeWarpRecipe> recipeHolder,
         IFocusGroup focuses,
         CallbackInfo ci) {
-        RecipeUtil.findTimeWarpCategorySlots(builder, recipeHolder.value());
+        RecipeUtil.findTimeWarpCategory(builder, recipeHolder.value());
     }
 }

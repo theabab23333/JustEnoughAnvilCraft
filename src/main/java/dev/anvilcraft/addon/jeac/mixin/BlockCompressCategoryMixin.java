@@ -1,14 +1,18 @@
 package dev.anvilcraft.addon.jeac.mixin;
 
+import dev.anvilcraft.addon.jeac.util.RecipeUtil;
 import dev.dubhe.anvilcraft.integration.jei.category.anvil.BlockCompressCategory;
+import dev.dubhe.anvilcraft.integration.jei.util.BlockTagUtil;
 import dev.dubhe.anvilcraft.integration.jei.util.JeiRenderHelper;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BlockCompressRecipe;
 import dev.dubhe.anvilcraft.util.RenderHelper;
 import mezz.jei.api.gui.ITickTimer;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Blocks;
@@ -35,9 +39,7 @@ public abstract class BlockCompressCategoryMixin {
         RecipeHolder<BlockCompressRecipe> recipeHolder,
         IFocusGroup focuses,
         CallbackInfo ci) {
-        BlockCompressRecipe recipe = recipeHolder.value();
-//        JeaSlotUtil.addBlockInputSlots(builder, recipe.getInputBlocks());
-//        JeaSlotUtil.addOutputSlots(builder, recipe.getResultBlocks(), 120, 15);
+        RecipeUtil.findBlockCompressCategory(builder, recipeHolder.value());
     }
 
     @Inject(method = "draw*", at = @At("HEAD"), cancellable = true)
@@ -51,7 +53,7 @@ public abstract class BlockCompressCategoryMixin {
         BlockCompressRecipe recipe = recipeHolder.value();
 
         float anvilYOffset = JeiRenderHelper.getAnvilAnimationOffset(this.timer);
-        this.progress.draw(guiGraphics, 73, 30);
+        this.progress.draw(guiGraphics, 74, 30);
 
         RenderHelper.renderBlock(
             guiGraphics,
@@ -83,6 +85,32 @@ public abstract class BlockCompressCategoryMixin {
         RenderHelper.renderBlock(
             guiGraphics, recipe.getFirstResultBlock().getState(), 110, 40, 0, 12, RenderHelper.SINGLE_BLOCK
         );
+        ci.cancel();
+    }
+
+    @Inject(method = "getTooltip*", at = @At("HEAD"), cancellable = true)
+    public void getTooltip(
+        ITooltipBuilder tooltip,
+        RecipeHolder<BlockCompressRecipe> recipeHolder,
+        IRecipeSlotsView recipeSlotsView,
+        double mouseX,
+        double mouseY,
+        CallbackInfo ci
+    ) {
+        BlockCompressRecipe recipe = recipeHolder.value();
+        if (mouseX >= 50 && mouseX <= 68) {
+            if (mouseY >= 24 && mouseY < 42) {
+                tooltip.addAll(BlockTagUtil.getTooltipsForInput(recipe.getInputBlocks().getFirst()));
+            }
+            if (mouseY >= 42 && mouseY <= 52) {
+                tooltip.addAll(BlockTagUtil.getTooltipsForInput(recipe.getInputBlocks().getLast()));
+            }
+        }
+        if (mouseX >= 110 && mouseX <= 130) {
+            if (mouseY >= 42 && mouseY <= 52) {
+                tooltip.add(recipe.getFirstResultBlock().getState().getBlock().getName());
+            }
+        }
         ci.cancel();
     }
 }
