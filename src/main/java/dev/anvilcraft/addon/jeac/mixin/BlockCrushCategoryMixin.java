@@ -1,5 +1,6 @@
 package dev.anvilcraft.addon.jeac.mixin;
 
+import dev.anvilcraft.addon.jeac.util.RecipeUtil;
 import dev.dubhe.anvilcraft.integration.jei.category.anvil.BlockCrushCategory;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BlockCrushRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -18,10 +19,6 @@ public abstract class BlockCrushCategoryMixin {
         RecipeHolder<BlockCrushRecipe> recipeHolder,
         IFocusGroup focuses,
         CallbackInfo ci) {
-        BlockCrushRecipe recipe = recipeHolder.value();
-//        JeaSlotUtil.addBlockInputSlots(builder, recipe.getInputBlocks());
-//        List<ChanceBlockState> chanceBlockStates = new ArrayList<>();
-//        chanceBlockStates.add(recipe.getFirstResultBlock());
-//        JeaSlotUtil.addOutputSlots(builder, chanceBlockStates, 120, 15);
+        RecipeUtil.findBlockCrushCategory(builder, recipeHolder.value());
     }
 }

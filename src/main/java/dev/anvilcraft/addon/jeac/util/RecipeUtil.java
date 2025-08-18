@@ -5,6 +5,7 @@ import dev.dubhe.anvilcraft.integration.jei.recipe.CementStainingRecipe;
 import dev.dubhe.anvilcraft.integration.jei.recipe.ColoredConcreteRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.AbstractProcessRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BlockCompressRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.BlockCrushRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BulgingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.ItemInjectRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SqueezingRecipe;
@@ -69,5 +70,10 @@ public class RecipeUtil {
     public static void findBlockCompressCategory(IRecipeLayoutBuilder builder, BlockCompressRecipe recipe) {
         addBlockStatePredicateInputSlots(builder, recipe.getInputBlocks(), 15, 14);
         addChanceBlockStateInputSlots(builder, recipe.getResultBlocks(), 120, 14);
+    }
+
+    public static void findBlockCrushCategory(IRecipeLayoutBuilder builder, BlockCrushRecipe recipe) {
+        addBlockStatePredicateInputSlots(builder, recipe.getInputBlocks(), 23, 35);
+        addChanceBlockStateInputSlots(builder, recipe.getResultBlocks(), 121, 35);
     }
 }
