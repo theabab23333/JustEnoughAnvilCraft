@@ -6,6 +6,8 @@ import dev.dubhe.anvilcraft.integration.jei.recipe.ColoredConcreteRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.AbstractProcessRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BulgingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.ItemInjectRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.SqueezingRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.TimeWarpRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
@@ -14,11 +16,7 @@ import static dev.anvilcraft.addon.jeac.util.JeaSlotUtil.*;
 
 public class RecipeUtil {
     public static <T extends AbstractProcessRecipe<?>> void findAbstractHasCauldron(IRecipeLayoutBuilder builder, RecipeHolder<T> recipe) {
-        if (recipe.value().getHasCauldron() != null) {
-            int consume = recipe.value().getHasCauldron().getConsume();
-            if (consume < 0) addFluidStackInputSlots(builder, 21, 41, recipe.value().getHasCauldron());
-            if (consume >= 0) addFluidStackOutputSlots(builder, 125, 41, recipe.value().getHasCauldron());
-        }
+        if (recipe.value().getHasCauldron() != null) addFluidStackOutputSlots(builder, 125, 41, recipe.value().getHasCauldron());
     }
 
     public static void findBulgingCategory(IRecipeLayoutBuilder builder, BulgingRecipe recipe) {
@@ -41,6 +39,15 @@ public class RecipeUtil {
     public static void findItemInjectCategorySlots(IRecipeLayoutBuilder builder, ItemInjectRecipe recipe) {
         addBlockStatePredicateInputSlots(builder, recipe.getInputBlocks(), 21, 41);
         addChanceBlockStateInputSlots(builder, recipe.getResultBlocks(), 125, 41);
+    }
+
+    public static void findSqueezingCategorySlots(IRecipeLayoutBuilder builder, SqueezingRecipe recipe) {
+        addBlockStatePredicateInputSlots(builder, recipe.getInputBlocks(), 24, 20);
+        addChanceBlockStateInputSlots(builder, recipe.getResultBlocks(), 120, 20);
+    }
+
+    public static void findTimeWarpCategorySlots(IRecipeLayoutBuilder builder, TimeWarpRecipe recipe) {
+
     }
 
 
@@ -125,39 +132,4 @@ public class RecipeUtil {
 //        }
 //    }
 //
-
-
-//
-//    public static void addItemInjectCategorySlots(IRecipeLayoutBuilder builder, ItemInjectRecipe recipe) {
-//        addBlockInputSlots(builder, recipe.getInputBlocks(), 35, 42);
-//        if (!recipe.getResultBlocks().isEmpty()) addOutputSlots(builder, recipe.getResultBlocks(), 110, 42);
-//    }
-//
-//    public static void addSqueezingCategorySlots(IRecipeLayoutBuilder builder, SqueezingRecipe recipe) {
-//        List<ChanceBlockState> chanceBlockStates = new ArrayList<>();
-//        chanceBlockStates.add(recipe.getFirstResultBlock());
-//        addOutputSlots(builder, chanceBlockStates, 120, 20);
-//        addBlockInputSlots(builder, recipe.getInputBlocks(), 40, 20);
-//        Block block = recipe.getHasCauldron().getTransformCauldron();
-//        CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(block);
-//
-//
-//        if (block.defaultBlockState().is(Blocks.POWDER_SNOW_CAULDRON))
-//            builder.addOutputSlot(120, 40).addItemLike(Items.POWDER_SNOW_BUCKET);
-//
-//        if (block.defaultBlockState().is(ModBlocks.LAVA_CAULDRON)) {
-//            Fluid fluid = Fluids.LAVA;
-//            int amount = 250;
-//            addFluidStackOutputSlots(builder, fluid, 120, 40, amount);
-//            return;
-//        }
-//
-//        if (cauldronFluidContent == null) return;
-//        Fluid fluid = cauldronFluidContent.fluid;
-//        addFluidStackOutputSlots(builder, fluid, 120, 40, 333);
-//    }
-//
-//    public static void addTimeWarpCategorySlots(IRecipeLayoutBuilder builder, TimeWarpRecipe recipe) {
-//
-//    }
 }

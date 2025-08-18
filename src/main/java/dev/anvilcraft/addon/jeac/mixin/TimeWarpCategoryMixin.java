@@ -1,5 +1,6 @@
 package dev.anvilcraft.addon.jeac.mixin;
 
+import dev.anvilcraft.addon.jeac.util.RecipeUtil;
 import dev.dubhe.anvilcraft.integration.jei.category.anvil.TimeWarpCategory;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.TimeWarpRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -18,7 +19,6 @@ public class TimeWarpCategoryMixin {
         RecipeHolder<TimeWarpRecipe> recipeHolder,
         IFocusGroup focuses,
         CallbackInfo ci) {
-        TimeWarpRecipe recipe = recipeHolder.value();
-//        JeaSlotUtil.addTimeWarpCategorySlots(builder, recipe);
+        RecipeUtil.findTimeWarpCategorySlots(builder, recipeHolder.value());
     }
 }
