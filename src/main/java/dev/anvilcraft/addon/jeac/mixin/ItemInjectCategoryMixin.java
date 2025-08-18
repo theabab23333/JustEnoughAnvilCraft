@@ -1,6 +1,6 @@
-package dev.anvilcraft.jea.mixin;
+package dev.anvilcraft.addon.jeac.mixin;
 
-import dev.anvilcraft.jea.util.JeaSlotUtil;
+import dev.anvilcraft.addon.jeac.util.RecipeUtil;
 import dev.dubhe.anvilcraft.integration.jei.category.anvil.ItemInjectCategory;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.ItemInjectRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -13,13 +13,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemInjectCategory.class)
 public class ItemInjectCategoryMixin {
+
     @Inject(method = "setRecipe*", at = @At("TAIL"))
     public void setRecipe(
         IRecipeLayoutBuilder builder,
         RecipeHolder<ItemInjectRecipe> recipeHolder,
         IFocusGroup focuses,
         CallbackInfo ci) {
-        ItemInjectRecipe recipe = recipeHolder.value();
-        JeaSlotUtil.addItemInjectCategorySlots(builder, recipe);
+        RecipeUtil.findItemInjectCategory(builder, recipeHolder.value());
     }
 }

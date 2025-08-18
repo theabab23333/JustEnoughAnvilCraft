@@ -1,6 +1,6 @@
-package dev.anvilcraft.jea.mixin;
+package dev.anvilcraft.addon.jeac.mixin;
 
-import dev.anvilcraft.jea.util.JeaSlotUtil;
+import dev.anvilcraft.addon.jeac.util.RecipeUtil;
 import dev.dubhe.anvilcraft.integration.jei.category.anvil.CementStainingCategory;
 import dev.dubhe.anvilcraft.integration.jei.recipe.CementStainingRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -18,6 +18,6 @@ public class CementStainingCategoryMixin {
         CementStainingRecipe recipeHolder,
         IFocusGroup focuses,
         CallbackInfo ci) {
-        JeaSlotUtil.addCementStainingCategoryFluidSlots(builder, recipeHolder);
+        RecipeUtil.findCementStainingCategory(builder, recipeHolder);
     }
 }
