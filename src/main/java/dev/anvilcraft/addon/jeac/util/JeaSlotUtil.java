@@ -2,6 +2,7 @@ package dev.anvilcraft.addon.jeac.util;
 
 import com.google.common.collect.ImmutableList;
 import dev.dubhe.anvilcraft.init.ModBlocks;
+import dev.dubhe.anvilcraft.init.ModFluids;
 import dev.dubhe.anvilcraft.recipe.anvil.util.BlockStatePredicate;
 import dev.dubhe.anvilcraft.recipe.anvil.util.ItemIngredientPredicate;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.components.ChanceBlockState;
@@ -28,21 +29,35 @@ import static dev.dubhe.anvilcraft.integration.jei.util.JeiSlotUtil.*;
 
 public class JeaSlotUtil {
 
+    // Do you like my special judgment?
+
     public static void addFluidAmountTooltips(IRecipeSlotBuilder slot, int count) {
         ImmutableList.Builder<Component> tooltipLines = new ImmutableList.Builder<>();
         tooltipLines.add(Component.translatable("jei.jeac.fluid.count", count));
         slot.addRichTooltipCallback((slotView, tooltip) -> tooltip.addAll(tooltipLines.build()));
     }
 
-    public static void addFluidStackInputSlots(IRecipeLayoutBuilder builder, int x, int y, HasCauldronSimple cauldronSimple) {
+    public static void addFluidStackInputSlots(IRecipeLayoutBuilder builder, HasCauldronSimple cauldronSimple, int x, int y) {
         Fluid fluid = getFluidInHasCauldronSimple(cauldronSimple);
         if (fluid == Fluids.EMPTY) return;
         IRecipeSlotBuilder slot = builder.addInputSlot(x, y).addFluidStack(fluid);
         addFluidAmountTooltips(slot, 1000);
     }
 
-    public static void addFluidStackInputSlots(IRecipeLayoutBuilder builder, int x, int y, Block block) {
-        if (isFluid(block)) {
+    public static void addFluidStackInputSlots(IRecipeLayoutBuilder builder, Block block, int x, int y) {
+        if (block.defaultBlockState().is(Blocks.POWDER_SNOW_CAULDRON)) {
+            addItemStackInputSlots(builder, Items.POWDER_SNOW_BUCKET.getDefaultInstance(), x, y);
+        } else if (block.defaultBlockState().is(ModBlocks.HONEY_CAULDRON)) {
+            addItemStackInputSlots(builder, Items.HONEY_BOTTLE.getDefaultInstance(), x, y);
+        } else if (block.defaultBlockState().is(ModBlocks.FIRE_CAULDRON)) {
+            IRecipeSlotBuilder itemSlot = builder.addSlot(RecipeIngredientRole.RENDER_ONLY, x, y - 22)
+                .addItemStack(Items.FLINT_AND_STEEL.getDefaultInstance());
+            itemSlot.addRichTooltipCallback((slotView, tooltip) ->
+                tooltip.add(Component.translatable("jei.jeac.fluid.fire")));
+
+            IRecipeSlotBuilder fluidSlot = builder.addInputSlot(x, y + 2).addFluidStack(ModFluids.OIL.get());
+            addFluidAmountTooltips(fluidSlot, 250);
+        } else if (isFluid(block)) {
             Fluid fluid = getFluidInBlock(block);
             if (fluid == null || fluid == Fluids.EMPTY) return;
             int nowLevel = getLevelInNowBlock(block);
@@ -51,16 +66,10 @@ public class JeaSlotUtil {
             int nowAmount = (int) (levelAmount * nowLevel);
             IRecipeSlotBuilder slot = builder.addInputSlot(x, y).addFluidStack(fluid);
             addFluidAmountTooltips(slot, nowAmount);
-        } else {
-            if (block.defaultBlockState().is(Blocks.POWDER_SNOW_CAULDRON)) {
-                addItemStackInputSlots(builder, Items.POWDER_SNOW_BUCKET.getDefaultInstance(), x, y);
-            } else if (block.defaultBlockState().is(ModBlocks.HONEY_CAULDRON)) {
-                addItemStackInputSlots(builder, Items.HONEY_BOTTLE.getDefaultInstance(), x, y);
-            }
         }
     }
 
-    public static void addFluidStackOutputSlots(IRecipeLayoutBuilder builder, int x, int y, HasCauldronSimple cauldronSimple) {
+    public static void addFluidStackOutputSlots(IRecipeLayoutBuilder builder, HasCauldronSimple cauldronSimple, int x, int y) {
         Fluid fluid = getFluidInHasCauldronSimple(cauldronSimple);
         int consume = cauldronSimple.getConsume();
         if (fluid == Fluids.EMPTY) return;
@@ -70,8 +79,16 @@ public class JeaSlotUtil {
         }
     }
 
-    public static void addFluidStackOutputSlots(IRecipeLayoutBuilder builder, int x, int y, Block block) {
-        if (isFluid(block)) {
+    public static void addFluidStackOutputSlots(IRecipeLayoutBuilder builder, Block block, int x, int y) {
+        if (block.defaultBlockState().is(Blocks.POWDER_SNOW_CAULDRON)) {
+            addItemStackOutputSlots(builder, Items.POWDER_SNOW_BUCKET.getDefaultInstance(), x, y);
+        } else if (block.defaultBlockState().is(ModBlocks.HONEY_CAULDRON)) {
+            addItemStackOutputSlots(builder, Items.HONEY_BOTTLE.getDefaultInstance(), x, y);
+        } else if (block.defaultBlockState().is(ModBlocks.FIRE_CAULDRON)) {
+            addItemStackOutputSlots(builder, Items.FLINT_AND_STEEL.getDefaultInstance(), x, y);
+            IRecipeSlotBuilder slot = builder.addOutputSlot(x, y).addFluidStack(ModFluids.OIL.get());
+            addFluidAmountTooltips(slot, 250);
+        } else if (isFluid(block)) {
             Fluid fluid = getFluidInBlock(block);
             if (fluid == null || fluid == Fluids.EMPTY) return;
             int nowLevel = getLevelInNowBlock(block);
@@ -80,12 +97,6 @@ public class JeaSlotUtil {
             int nowAmount = (int) (levelAmount * nowLevel);
             IRecipeSlotBuilder slot = builder.addOutputSlot(x, y).addFluidStack(fluid);
             addFluidAmountTooltips(slot, nowAmount);
-        } else {
-            if (block.defaultBlockState().is(Blocks.POWDER_SNOW_CAULDRON)) {
-                addItemStackOutputSlots(builder, Items.POWDER_SNOW_BUCKET.getDefaultInstance(), x, y);
-            } else if (block.defaultBlockState().is(ModBlocks.HONEY_CAULDRON)) {
-                addItemStackOutputSlots(builder, Items.HONEY_BOTTLE.getDefaultInstance(), x, y);
-            }
         }
     }
 
