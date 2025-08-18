@@ -50,6 +50,7 @@ public class RecipeUtil {
     public static void findSqueezingCategory(IRecipeLayoutBuilder builder, SqueezingRecipe recipe) {
         addBlockStatePredicateInputSlots(builder, recipe.getInputBlocks(), 24, 20);
         addChanceBlockStateInputSlots(builder, recipe.getResultBlocks(), 120, 20);
+        addFluidStackOutputSlots(builder, recipe.getHasCauldron().getTransformCauldron(), 120, 40);
     }
 
     public static void findTimeWarpCategory(IRecipeLayoutBuilder builder, TimeWarpRecipe recipe) {

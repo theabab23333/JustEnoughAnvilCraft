@@ -84,6 +84,9 @@ public class JeaSlotUtil {
             addItemStackOutputSlots(builder, Items.POWDER_SNOW_BUCKET.getDefaultInstance(), x, y);
         } else if (block.defaultBlockState().is(ModBlocks.HONEY_CAULDRON)) {
             addItemStackOutputSlots(builder, Items.HONEY_BOTTLE.getDefaultInstance(), x, y);
+        } else if (block.defaultBlockState().is(ModBlocks.LAVA_CAULDRON)) {
+            IRecipeSlotBuilder slot = builder.addOutputSlot(x, y).addFluidStack(Fluids.LAVA);
+            addFluidAmountTooltips(slot, 250);
         } else if (block.defaultBlockState().is(ModBlocks.FIRE_CAULDRON)) {
             addItemStackOutputSlots(builder, Items.FLINT_AND_STEEL.getDefaultInstance(), x, y);
             IRecipeSlotBuilder slot = builder.addOutputSlot(x, y).addFluidStack(ModFluids.OIL.get());
