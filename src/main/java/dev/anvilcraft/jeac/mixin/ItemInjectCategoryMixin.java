@@ -43,15 +43,9 @@ public class ItemInjectCategoryMixin {
         IFocusGroup focuses,
         CallbackInfo ci) {
         ItemInjectRecipe recipe = recipeHolder.value();
-        JeaSlotUtil.addItemInjectCategorySlots(builder, recipe);
-
-        JeaSlotUtil.addItemInputSlots(builder, recipe.getInputItems());
-        builder.addInvisibleIngredients(RecipeIngredientRole.INPUT)
-            .addIngredients(Ingredient.of(
-                recipe.getFirstInputBlock().getBlocks().stream().map(state -> new ItemStack(state.value())).toArray(ItemStack[]::new)));
-        builder.addInvisibleIngredients(RecipeIngredientRole.OUTPUT)
-            .addItemStack(new ItemStack(recipe.getFirstResultBlock().getState().getBlock()));
-        ci.cancel();
+//        JeaSlotUtil.addItemInjectCategorySlots(builder, recipe);
+//        JeaSlotUtil.addItemInputSlots(builder, recipe.getInputItems());
+//        ci.cancel();
     }
 
     @Inject(method = "draw*", at = @At("HEAD"), cancellable = true)

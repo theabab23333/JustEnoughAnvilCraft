@@ -24,9 +24,9 @@ public abstract class BlockCrushCategoryMixin {
         IFocusGroup focuses,
         CallbackInfo ci) {
         BlockCrushRecipe recipe = recipeHolder.value();
-        JeaSlotUtil.addInputSlots(builder, recipe.getInputBlocks());
-        List<ChanceBlockState> chanceBlockStates = new ArrayList<>();
-        chanceBlockStates.add(recipe.getFirstResultBlock());
-        JeaSlotUtil.addOutputSlots(builder, chanceBlockStates, 120, 15);
+//        JeaSlotUtil.addBlockInputSlots(builder, recipe.getInputBlocks());
+//        List<ChanceBlockState> chanceBlockStates = new ArrayList<>();
+//        chanceBlockStates.add(recipe.getFirstResultBlock());
+//        JeaSlotUtil.addOutputSlots(builder, chanceBlockStates, 120, 15);
     }
 }

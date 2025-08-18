@@ -37,8 +37,8 @@ public abstract class BlockCompressCategoryMixin {
         IFocusGroup focuses,
         CallbackInfo ci) {
         BlockCompressRecipe recipe = recipeHolder.value();
-        JeaSlotUtil.addInputSlots(builder, recipe.getInputBlocks());
-        JeaSlotUtil.addOutputSlots(builder, recipe.getResultBlocks(), 120, 15);
+//        JeaSlotUtil.addBlockInputSlots(builder, recipe.getInputBlocks());
+//        JeaSlotUtil.addOutputSlots(builder, recipe.getResultBlocks(), 120, 15);
     }
 
     @Inject(method = "draw*", at = @At("HEAD"), cancellable = true)

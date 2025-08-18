@@ -20,6 +20,6 @@ public class SqueezingCategoryMixin {
         IFocusGroup focuses,
         CallbackInfo ci) {
         SqueezingRecipe recipe = recipeHolder.value();
-        JeaSlotUtil.addSqueezingCategorySlots(builder, recipe);
+//        JeaSlotUtil.addSqueezingCategorySlots(builder, recipe);
     }
 }

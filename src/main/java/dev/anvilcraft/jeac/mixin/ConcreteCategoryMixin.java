@@ -18,6 +18,6 @@ public class ConcreteCategoryMixin {
         ColoredConcreteRecipe recipeHolder,
         IFocusGroup focuses,
         CallbackInfo ci) {
-        JeaSlotUtil.addConcreteCategoryFluidSlots(builder, recipeHolder);
+//        JeaSlotUtil.addConcreteCategoryFluidSlots(builder, recipeHolder);
     }
 }

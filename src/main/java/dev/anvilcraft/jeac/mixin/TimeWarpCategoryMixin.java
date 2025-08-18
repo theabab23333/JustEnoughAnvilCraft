@@ -20,6 +20,6 @@ public class TimeWarpCategoryMixin {
         IFocusGroup focuses,
         CallbackInfo ci) {
         TimeWarpRecipe recipe = recipeHolder.value();
-        JeaSlotUtil.addTimeWarpCategorySlots(builder, recipe);
+//        JeaSlotUtil.addTimeWarpCategorySlots(builder, recipe);
     }
 }

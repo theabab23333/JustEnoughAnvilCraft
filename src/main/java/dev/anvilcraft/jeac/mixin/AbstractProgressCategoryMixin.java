@@ -1,6 +1,7 @@
 package dev.anvilcraft.jeac.mixin;
 
 import dev.anvilcraft.jeac.util.JeaSlotUtil;
+import dev.anvilcraft.jeac.util.RecipeUtil;
 import dev.dubhe.anvilcraft.integration.jei.category.anvil.AbstractProgressCategory;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.AbstractProcessRecipe;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -20,6 +21,6 @@ public abstract class AbstractProgressCategoryMixin<T extends AbstractProcessRec
         RecipeHolder<T> recipeHolder,
         IFocusGroup focuses,
         CallbackInfo ci) {
-        JeaSlotUtil.addAbstractProgressCategoryFluidSlots(builder, recipeHolder);
+        RecipeUtil.findAbstractHasCauldron(builder, recipeHolder);
     }
 }

@@ -20,6 +20,6 @@ public abstract class BulgingCategoryMixin {
         IFocusGroup focuses,
         CallbackInfo ci) {
         BulgingRecipe recipe = recipeHolder.value();
-        JeaSlotUtil.addBulgingCategoryFluidSlots(builder, recipe);
+//        JeaSlotUtil.addBulgingCategoryFluidSlots(builder, recipe);
     }
 }
