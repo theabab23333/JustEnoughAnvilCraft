@@ -33,18 +33,18 @@ public class RecipeUtil {
 
     public static void findCementStainingCategory(IRecipeLayoutBuilder builder, CementStainingRecipe recipe) {
         if (recipe.resultBlock() != null) {
-            addFluidStackOutputSlots(builder, recipe.resultBlock(), 125, 41);
+            addFluidStackOutputSlots(builder, recipe.resultBlock(), 125, 44);
         }
     }
 
     public static void findConcreteCategory(IRecipeLayoutBuilder builder, ColoredConcreteRecipe recipe) {
         BlockState blockState = ModBlocks.CEMENT_CAULDRONS.get(recipe.color()).getDefaultState();
-        addFluidStackInputSlots(builder, blockState.getBlock(), 46, 36);
+        addFluidStackInputSlots(builder, blockState.getBlock(), 46, 37);
     }
 
     public static void findItemInjectCategory(IRecipeLayoutBuilder builder, ItemInjectRecipe recipe) {
-        addBlockStatePredicateInputSlots(builder, recipe.getInputBlocks(), 21, 41);
-        addChanceBlockStateInputSlots(builder, recipe.getResultBlocks(), 125, 41);
+        addBlockStatePredicateInputSlots(builder, recipe.getInputBlocks(), 21, 43);
+        addChanceBlockStateInputSlots(builder, recipe.getResultBlocks(), 125, 43);
     }
 
     public static void findSqueezingCategory(IRecipeLayoutBuilder builder, SqueezingRecipe recipe) {
