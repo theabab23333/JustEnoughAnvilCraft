@@ -5,9 +5,9 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AbstractProgressCategoryMixin",
-    "AbstractProgressCategoryMixin",
     "BlockCompressCategoryMixin",
     "BlockCrushCategoryMixin",
+    "BlockSmearCategoryMixin",
     "BulgingCategoryMixin",
     "CementStainingCategoryMixin",
     "ConcreteCategoryMixin",

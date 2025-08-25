@@ -1,12 +1,12 @@
 package dev.anvilcraft.addon.jeac.util;
 
 import com.google.common.collect.ImmutableList;
-import dev.dubhe.anvilcraft.init.ModBlocks;
-import dev.dubhe.anvilcraft.init.ModFluids;
-import dev.dubhe.anvilcraft.recipe.anvil.util.BlockStatePredicate;
-import dev.dubhe.anvilcraft.recipe.anvil.util.ItemIngredientPredicate;
-import dev.dubhe.anvilcraft.recipe.anvil.wrap.components.ChanceBlockState;
-import dev.dubhe.anvilcraft.recipe.anvil.wrap.components.HasCauldronSimple;
+import dev.anvilcraft.lib.recipe.component.BlockStatePredicate;
+import dev.anvilcraft.lib.recipe.component.ChanceBlockState;
+import dev.anvilcraft.lib.recipe.component.ItemIngredientPredicate;
+import dev.dubhe.anvilcraft.init.block.ModBlocks;
+import dev.dubhe.anvilcraft.init.block.ModFluids;
+import dev.dubhe.anvilcraft.recipe.component.HasCauldronSimple;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -71,7 +71,7 @@ public class JeaSlotUtil {
 
     public static void addFluidStackOutputSlots(IRecipeLayoutBuilder builder, HasCauldronSimple cauldronSimple, int x, int y) {
         Fluid fluid = getFluidInHasCauldronSimple(cauldronSimple);
-        int consume = cauldronSimple.getConsume();
+        int consume = cauldronSimple.consume();
         if (fluid == Fluids.EMPTY) return;
         IRecipeSlotBuilder slot = builder.addOutputSlot(x, y).addFluidStack(fluid);
         if (consume > 0) {
@@ -142,7 +142,7 @@ public class JeaSlotUtil {
 
     public static void addChanceBlockStateInputSlots(IRecipeLayoutBuilder builder, List<ChanceBlockState> chanceBlockStates, int x, int y) {
         for (ChanceBlockState chanceBlockState : chanceBlockStates) {
-            Item item = chanceBlockState.getState().getBlock().asItem();
+            Item item = chanceBlockState.state().getBlock().asItem();
             IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.OUTPUT, x, y).addItemStack(item.getDefaultInstance());
         }
     }

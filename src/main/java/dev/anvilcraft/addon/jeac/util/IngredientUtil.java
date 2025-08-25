@@ -1,6 +1,6 @@
 package dev.anvilcraft.addon.jeac.util;
 
-import dev.dubhe.anvilcraft.recipe.anvil.util.ItemIngredientPredicate;
+import dev.anvilcraft.lib.recipe.component.ItemIngredientPredicate;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
