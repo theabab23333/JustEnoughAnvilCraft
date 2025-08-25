@@ -1,11 +1,12 @@
 package dev.anvilcraft.addon.jeac.util;
 
-import dev.dubhe.anvilcraft.init.ModBlocks;
+import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.integration.jei.recipe.CementStainingRecipe;
 import dev.dubhe.anvilcraft.integration.jei.recipe.ColoredConcreteRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.AbstractProcessRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BlockCompressRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BlockCrushRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.BlockSmearRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BulgingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.ItemInjectRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SqueezingRecipe;
@@ -39,7 +40,7 @@ public class RecipeUtil {
 
     public static void findConcreteCategory(IRecipeLayoutBuilder builder, ColoredConcreteRecipe recipe) {
         BlockState blockState = ModBlocks.CEMENT_CAULDRONS.get(recipe.color()).getDefaultState();
-        addFluidStackInputSlots(builder, blockState.getBlock(), 46, 37);
+        addFluidStackInputSlots(builder, blockState.getBlock(), 48, 17);
     }
 
     public static void findItemInjectCategory(IRecipeLayoutBuilder builder, ItemInjectRecipe recipe) {
@@ -70,6 +71,11 @@ public class RecipeUtil {
 
     public static void findBlockCompressCategory(IRecipeLayoutBuilder builder, BlockCompressRecipe recipe) {
         addBlockStatePredicateInputSlots(builder, recipe.getInputBlocks(), 15, 14);
+        addChanceBlockStateInputSlots(builder, recipe.getResultBlocks(), 120, 14);
+    }
+
+    public static void findBlockSmearCategory(IRecipeLayoutBuilder builder, BlockSmearRecipe recipe) {
+        addBlockStatePredicateInputSlots(builder, recipe.getInputBlocks(), 8, 14);
         addChanceBlockStateInputSlots(builder, recipe.getResultBlocks(), 120, 14);
     }
 

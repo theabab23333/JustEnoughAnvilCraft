@@ -30,7 +30,7 @@ public abstract class BlockCompressCategoryMixin {
 
     @Shadow @Final private ITickTimer timer;
 
-    @Shadow @Final private IDrawable progress;
+    @Shadow @Final private IDrawable arrowDefault;
 
     @Inject(method = "setRecipe*", at = @At("HEAD"))
     public void setRecipe(
@@ -52,7 +52,7 @@ public abstract class BlockCompressCategoryMixin {
         BlockCompressRecipe recipe = recipeHolder.value();
 
         float anvilYOffset = JeiRenderHelper.getAnvilAnimationOffset(this.timer);
-        this.progress.draw(guiGraphics, 74, 30);
+        this.arrowDefault.draw(guiGraphics, 74, 30);
 
         RenderHelper.renderBlock(
             guiGraphics,
@@ -82,7 +82,7 @@ public abstract class BlockCompressCategoryMixin {
         RenderHelper.renderBlock(
             guiGraphics, Blocks.ANVIL.defaultBlockState(), 110, 30, 10, 12, RenderHelper.SINGLE_BLOCK);
         RenderHelper.renderBlock(
-            guiGraphics, recipe.getFirstResultBlock().getState(), 110, 40, 0, 12, RenderHelper.SINGLE_BLOCK
+            guiGraphics, recipe.getFirstResultBlock().state(), 110, 40, 0, 12, RenderHelper.SINGLE_BLOCK
         );
         ci.cancel();
     }
@@ -107,7 +107,7 @@ public abstract class BlockCompressCategoryMixin {
         }
         if (mouseX >= 110 && mouseX <= 130) {
             if (mouseY >= 42 && mouseY <= 52) {
-                tooltip.add(recipe.getFirstResultBlock().getState().getBlock().getName());
+                tooltip.add(recipe.getFirstResultBlock().state().getBlock().getName());
             }
         }
         ci.cancel();
