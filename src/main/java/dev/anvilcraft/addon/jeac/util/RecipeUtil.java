@@ -49,16 +49,15 @@ public class RecipeUtil {
 
     public static void findTimeWarpCategory(IRecipeLayoutBuilder builder, TimeWarpRecipe recipe) {
         if (recipe.isConsumeFluid()) {
-
             Block result = recipe.getHasCauldron().getFluidCauldron();
             BlockState cauldronState;
             cauldronState = CauldronUtil.getStateFromContentAndLevel(result, CauldronUtil.maxLevel(result) - 1);
             if (cauldronState.is(Blocks.CAULDRON)) cauldronState = CauldronUtil.fullState(result);
-            addFluidStackInputSlots(builder, cauldronState.getBlock(), 46, 36);
+            addFluidStackInputSlots(builder, cauldronState.getBlock(), 48, 34);
         } else if (recipe.isProduceFluid()) {
             Block result = recipe.getHasCauldron().getTransformCauldron();
             BlockState cauldronState = CauldronUtil.getStateFromContentAndLevel(result, 1);
-            addFluidStackOutputSlots(builder, cauldronState.getBlock(), 125, 41);
+            addFluidStackOutputSlots(builder, cauldronState.getBlock(), 125, 44);
         }
     }
 }

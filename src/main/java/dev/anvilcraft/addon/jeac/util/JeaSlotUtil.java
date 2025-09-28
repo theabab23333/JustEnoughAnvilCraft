@@ -50,13 +50,12 @@ public class JeaSlotUtil {
         } else if (block.defaultBlockState().is(ModBlocks.HONEY_CAULDRON)) {
             addItemStackInputSlots(builder, Items.HONEY_BOTTLE.getDefaultInstance(), x, y);
         } else if (block.defaultBlockState().is(ModBlocks.FIRE_CAULDRON)) {
-            IRecipeSlotBuilder itemSlot = builder.addSlot(RecipeIngredientRole.RENDER_ONLY, x, y - 22)
+            IRecipeSlotBuilder itemSlot = builder.addSlot(RecipeIngredientRole.RENDER_ONLY, x, y - 32)
                 .addItemStack(Items.FLINT_AND_STEEL.getDefaultInstance());
             itemSlot.addRichTooltipCallback((slotView, tooltip) ->
                 tooltip.add(Component.translatable("jei.jeac.fluid.fire")));
-
-            IRecipeSlotBuilder fluidSlot = builder.addInputSlot(x, y + 2).addFluidStack(ModFluids.OIL.get());
-            addFluidAmountTooltips(fluidSlot, 250);
+            IRecipeSlotBuilder fluidSlot = builder.addInputSlot(x, y).addFluidStack(ModFluids.OIL.get());
+            addFluidAmountTooltips(fluidSlot, 1000);
         } else if (isFluid(block)) {
             Fluid fluid = getFluidInBlock(block);
             if (fluid == null || fluid == Fluids.EMPTY) return;
