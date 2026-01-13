@@ -35,6 +35,7 @@ neoForge {
                 jvmArgument "-XX:+AllowEnhancedClassRedefinition"
             }
             systemProperty 'forge.logging.markers', 'REGISTRIES'
+            systemProperty 'terminal.jline', 'true'
             logLevel = org.slf4j.event.Level.DEBUG
         }
     }
